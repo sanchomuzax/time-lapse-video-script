@@ -1,0 +1,31 @@
+MyDir = "\Storage Card\DCIM\100MEDIA\"
+FileDir = MyDir\"**.jpg"
+WebDir = "\My Documents\MobileWebServer\sample\"
+jpgArray = DirContents(FileDir, DC_FILES)
+D = ElementCount(jpgArray)
+F = 0
+If (D > 0)
+ ForEach J in Array (jpgArray)
+  F = F + 1
+  If (F = D - 6)
+   Copy (MyDir & J, WebDir & "camera-photo-b3.jpg", TRUE)
+  EndIf
+  If (F = D - 5)
+   Copy (MyDir & J, WebDir & "camera-photo-a3.jpg", TRUE)
+  EndIf
+  If (F = D - 4)
+   Copy (MyDir & J, WebDir & "camera-photo-b2.jpg", TRUE)
+  EndIf
+  If (F = D - 3)
+   Copy (MyDir & J, WebDir & "camera-photo-a2.jpg", TRUE)
+  EndIf
+  If (F = D - 2)
+   Copy (MyDir & J, WebDir & "camera-photo-b1.jpg", TRUE)
+  EndIf
+  If (F = D - 1)
+   Copy (MyDir & J, WebDir & "camera-photo-a1.jpg", TRUE)
+  EndIf
+ EndForEach
+EndIf
+
+PlaySound("Windows\bioscrollscroll.wav")
