@@ -1,0 +1,44 @@
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+
+PlaySound("Windows\bioscrollstop.wav")
+Rotate (270)
+ToggleDisplay(On)
+S = ScreenWidth()
+
+Show ("Desktop")
+WaitForActive("Desktop", 10)
+
+Run ("\Windows\Camera.exe")
+WaitForActive("Camera", 10)
+
+SendCR("Camera")
+Sleep(10000)
+;MouseClick("Camera", 2, 160)
+;Sleep(2000)
+;MouseClick("Camera", 20, 160)
+;Sleep(3000)
+;MouseClick("Camera", 125, 160)
+;Sleep(2000)
+;SendCR("Camera")
+;Sleep(3000)
+Close("Camera")
+
+Show ("Desktop")
+WaitForActive("Desktop", 10)
+If (S = 240)
+  MouseClick("Desktop", 120, 160)
+Else
+  MouseClick("Desktop", 160, 150)
+EndIf
+Sleep(500)
+If (S = 240)
+  MouseClick("Desktop", 120, 140)
+Else
+  MouseClick("Desktop", 160, 120)
+EndIf
+PlaySound("Windows\bioscrollscroll.wav")
+
+Run("\My Documents\archives.mscr")
+Run("\My Documents\timing.mscr")
