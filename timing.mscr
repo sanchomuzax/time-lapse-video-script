@@ -1,5 +1,20 @@
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\timing.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+
+# Aktuális dátum és idô
 GetTime(hour,minute,seconds,day,month,year)
 
+# Az általános rögzitési idôköz
+s = 0
+m = 5
+h = 0
+dd = 0
+mm = 0
+yy = 0
+
+# Napfelkelte és naplemente beolvasása
 Date = FormatTime( "m.d", TimeStamp ())
 Napkelte = IniRead("sun.txt", "Napkelte", Date)
 Napnyugta = IniRead("sun.txt", "Napnyugta", Date)
@@ -9,6 +24,7 @@ NapkeltePerc = Eval(SubStr( Napkelte, 4, 2))
 NapnyugtaOra = Eval(SubStr( Napnyugta, 1, 2))
 NapnyugtaPerc = Eval(SubStr( Napnyugta, 4, 2))
 
+# Minden percre átszámítás
 NapkelteStart = NapkelteOra * 60 + NapkeltePerc - 30
 NapkelteStop = NapkelteOra * 60 + NapkeltePerc + 30
 NapnyugtaStart = NapnyugtaOra * 60 + NapnyugtaPerc - 30
@@ -16,12 +32,105 @@ NapnyugtaStop = NapnyugtaOra * 60 + NapnyugtaPerc + 30
 
 Most = hour * 60 + minute
 
+# Napkelte alatt rövidebb idôköz
 If ((Most >= NapkelteStart)*(Most <= NapkelteStop))
  m = 5
 EndIf
 
+# Napnyugta alatt rövidebb idôköz
 If ((Most >= NapnyugtaStart)*(Most <= NapnyugtaStop))
  m = 5
 EndIf
 
-Message (Most)
+# Éjszaka hosszabb idôköz
+If ((Most >= (NapnyugtaStop + 60))+(Most <= (NapkelteStart - 60)))
+ m = 5
+# h = 1
+EndIf
+
+# Nagyságrend váltások
+
+If ((seconds + s) > 59)
+ seconds = seconds + s - 60
+ m = m + 1
+Else
+ seconds = seconds + s
+EndIf
+
+If ((minute + m) > 59)
+ minute = minute + m - 60
+ h = h + 1
+Else
+ minute = minute + m
+EndIf
+
+If ((hour + h) > 23)
+ hour = hour + h - 24
+ dd = dd + 1
+Else
+ hour = hour + h
+EndIf
+
+If ((day + dd) > 31)
+ If (month = 3)
+  month = 4
+  day = day + dd - 31
+ EndIf
+ If (month = 7)
+  month = 8
+  day = day + dd - 31
+ EndIf
+ If (month = 8)
+  month = 9
+  day = day + dd - 31
+ EndIf
+ If (month = 12)
+  month = 1
+  yy = 1
+  day = day + dd - 31
+ EndIf
+ElseIf ((day + dd) > 30)
+ If (month = 1)
+  month = 2
+  day = day + dd - 30
+ EndIf
+ If (month = 4)
+  month = 5
+  day = day + dd - 30
+ EndIf
+ If (month = 6)
+  month = 7
+  day = day + dd - 30
+ EndIf
+ If (month = 9)
+  month = 10
+  day = day + dd - 30
+ EndIf
+ If (month = 10)
+  month = 11
+  day = day + dd - 30
+ EndIf
+ If (month = 11)
+  month = 12
+  day = day + dd - 30
+ EndIf
+ElseIf ((day + dd) > 28)
+ If (month = 2)
+  month = 3
+  day = day + dd - 28
+ EndIf
+Else
+ day = day + dd
+EndIf
+
+If ((month + mm) > 12)
+ month = month + mm - 12
+ year = year + 1
+Else
+ month = month + mm
+EndIf
+
+year = year + yy
+
+# Idôzítés beállítása
+RunAt(year,month,day,hour,minute,"\My Documents\photo.mscr")
