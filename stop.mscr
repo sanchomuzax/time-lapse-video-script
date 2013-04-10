@@ -1,0 +1,6 @@
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\photo.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\copy.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe","\My Documents\timing.mscr")
+RemoveNotifications("\Program Files\MortScript\MortScript.exe")
+
+PlaySound("Windows\bioscrollscroll.wav")
