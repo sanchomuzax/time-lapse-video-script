@@ -1,0 +1,4 @@
+ContentLink = "http://mediacdn.disqus.com/uploads/users/266/9342/avatar92.jpg?1271411786"
+ContentAlt ="Name of the image"
+IniWrite("\Storage Card\DCIM\100MEDIA\archives\start.htm", "", "src", """" & ContentLink & """")
+IniWrite("\Storage Card\DCIM\100MEDIA\archives\start.htm", "", "alt", """" & ContentAlt & """")
