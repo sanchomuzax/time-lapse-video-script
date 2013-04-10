@@ -1,0 +1,28 @@
+GetTime(hour,minute,seconds,day,month,year)
+
+DirRoot = "\Storage Card\DCIM\100MEDIA\archives\"
+DirName = year & month & day
+
+DCIM = "\Storage Card\DCIM\100MEDIA\"
+jpgArray = DirContents(DCIM\"**.jpg", DC_FILES)
+D = ElementCount(jpgArray)
+If (D > 0)
+ ForEach J in Array (jpgArray)
+  FileCreated = FileCreateTime(DCIM & J)
+  jpgCreated = FormatTime("Ymd", FileCreated)
+  DirArch = DirRoot & jpgCreated & "\"
+  If (DirExists(DirArch))
+  Else
+   MkDir(DirArch)
+  EndIf
+  Move(DCIM & J, DirArch)
+ EndForEach
+
+ ContentLink = jpgCreated & "\" & J
+ ContentAlt = jpgCreated & " : " & J
+ IniWrite("\Storage Card\DCIM\100MEDIA\archives\start.htm", "", "src", """" & ContentLink & """")
+ IniWrite("\Storage Card\DCIM\100MEDIA\archives\start.htm", "", "alt", """" & ContentAlt & """")
+
+EndIf
+
+PlaySound("Windows\bioscrollscroll.wav")
