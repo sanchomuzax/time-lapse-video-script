@@ -1,0 +1,27 @@
+GetTime(hour,minute,seconds,day,month,year)
+
+Date = FormatTime( "m.d", TimeStamp ())
+Napkelte = IniRead("sun.txt", "Napkelte", Date)
+Napnyugta = IniRead("sun.txt", "Napnyugta", Date)
+
+NapkelteOra = Eval(SubStr( Napkelte, 1, 2))
+NapkeltePerc = Eval(SubStr( Napkelte, 4, 2))
+NapnyugtaOra = Eval(SubStr( Napnyugta, 1, 2))
+NapnyugtaPerc = Eval(SubStr( Napnyugta, 4, 2))
+
+NapkelteStart = NapkelteOra * 60 + NapkeltePerc - 30
+NapkelteStop = NapkelteOra * 60 + NapkeltePerc + 30
+NapnyugtaStart = NapnyugtaOra * 60 + NapnyugtaPerc - 30
+NapnyugtaStop = NapnyugtaOra * 60 + NapnyugtaPerc + 30
+
+Most = hour * 60 + minute
+
+If ((Most >= NapkelteStart)*(Most <= NapkelteStop))
+ m = 5
+EndIf
+
+If ((Most >= NapnyugtaStart)*(Most <= NapnyugtaStop))
+ m = 5
+EndIf
+
+Message (Most)
